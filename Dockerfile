@@ -260,6 +260,31 @@ ADD src/ /var/www/html/
 ADD errors/ /var/www/errors
 
 
+# Install php-memcached and php-mongo drivers
+RUN apk add --no-cache --virtual .php-drivers \
+        build-base \
+        autoconf \
+        libmemcached \
+        libmemcached-dev \
+        cyrus-sasl-dev \
+        pcre-dev \
+    # && cd / \
+    # && git clone https://github.com/php-memcached-dev/php-memcached.git \
+    # && cd php-memcached \
+    # && git checkout php7 \
+    # && phpize \
+    # && ./configure --disable-memcached-sasl \
+    # && make \
+    # && make install \
+    && pecl install memcached \
+    && touch /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini \
+    && echo "extension=memcached.so" >> /usr/local/etc/php/conf.d/docker-php-ext-memcached.ini \
+    && pecl install mongodb \
+    && touch /usr/local/etc/php/conf.d/docker-php-ext-mongodb.ini \
+    && echo "extension=mongodb.so" >> /usr/local/etc/php/conf.d/docker-php-ext-mongodb.ini
+
+RUN apk del build-base autoconf cyrus-sasl-dev libmemcached-dev
+
 EXPOSE 443 80
 
 CMD ["/start.sh"]

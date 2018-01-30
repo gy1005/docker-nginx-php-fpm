@@ -684,7 +684,7 @@ ngx_stream_variable_session_time(ngx_stream_session_t *s,
              ((tp->sec - s->start_sec) * 1000 + (tp->msec - s->start_msec));
     ms = ngx_max(ms, 0);
 
-    v->len = ngx_sprintf(p, "%T.%06M", (time_t) ms / 1000, ms % 1000) - p;
+    v->len = ngx_sprintf(p, "%T.%03M", (time_t) ms / 1000, ms % 1000) - p;
     v->valid = 1;
     v->no_cacheable = 0;
     v->not_found = 0;
@@ -796,7 +796,7 @@ ngx_stream_variable_msec(ngx_stream_session_t *s,
 
     tp = ngx_timeofday();
 
-    v->len = ngx_sprintf(p, "%T.%06M", tp->sec, tp->msec) - p;
+    v->len = ngx_sprintf(p, "%T.%03M", tp->sec, tp->msec) - p;
     v->valid = 1;
     v->no_cacheable = 0;
     v->not_found = 0;

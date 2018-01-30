@@ -821,7 +821,7 @@ ngx_http_log_msec(ngx_http_request_t *r, u_char *buf, ngx_http_log_op_t *op)
 
     tp = ngx_timeofday();
 
-    return ngx_sprintf(buf, "%T.%06M", tp->sec, tp->msec);
+    return ngx_sprintf(buf, "%T.%03M", tp->sec, tp->msec);
 }
 
 

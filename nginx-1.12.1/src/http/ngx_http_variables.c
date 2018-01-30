@@ -2271,7 +2271,7 @@ ngx_http_variable_msec(ngx_http_request_t *r,
 
     tp = ngx_timeofday();
 
-    v->len = ngx_sprintf(p, "%T.%06M", tp->sec, tp->msec) - p;
+    v->len = ngx_sprintf(p, "%T.%03M", tp->sec, tp->msec) - p;
     v->valid = 1;
     v->no_cacheable = 0;
     v->not_found = 0;
